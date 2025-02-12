@@ -108,4 +108,10 @@ class EmailServiceImpl implements IEmailService {
     public function getEmailsByDomain(): array {
         return $this->repository->getEmailsByDomain();
     }
+
+    // ######################################### Get sorted emails
+    // ########################################################################
+    public function getSortedEmails(): array {
+        return $this->repository->getSortedEmails();
+    }
 }

@@ -53,4 +53,12 @@ class FileEmailRepositoryImpl implements IEmailRepository {
         }
         return file($invalidEmailsPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
     }
+
+    public function getSortedEmails(): array {
+        $sortedEmailsPath = dirname($this->filePath) . '/EmailsT.txt';
+        if (!file_exists($sortedEmailsPath)) {
+            return [];
+        }
+        return file($sortedEmailsPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
+    }
 }

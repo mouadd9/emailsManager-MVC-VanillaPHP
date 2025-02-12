@@ -30,4 +30,10 @@ interface IEmailRepository {
      * @return array List of invalid emails
      */
     public function getInvalidEmails(): array;
+
+    /**
+     * Get all sorted emails from EmailsT.txt
+     * @return array List of sorted emails
+     */
+    public function getSortedEmails(): array;
 }

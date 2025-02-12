@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $pageTitle ?></title>
-    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     </head>
 <body>
     <div class="container">
@@ -34,15 +34,15 @@
                     <button onclick="performAction('supprimerDoublons')">Supprimer doublons</button>
                     <button onclick="performAction('trierEmails')">Trier les emails</button>
                     <button onclick="performAction('separerDomaines')">Séparer par domaine</button>
-                    <button id="validateEmails" type="button">Valider tous les emails</button>
                 </div>
+
+                <div id="resultArea"></div>
 
                 <!-- Email Lists -->
                 <div class="email-lists">
                     <div class="email-tables">
                         <!-- Valid Emails -->
                         <div class="email-table">
-               
                             <div class="table-container">
                                 <table>
                                     <thead>
@@ -80,6 +80,26 @@
                                 </table>
                             </div>
                         </div>
+
+                        <!-- Sorted Emails -->
+                        <div class="email-table">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Emails Triés</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($sortedEmails as $email): ?>
+                                            <tr>
+                                                <td><?= htmlspecialchars($email) ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <h2>Emails par Domaine</h2>
                     <!-- Domain Tables -->
@@ -107,10 +127,9 @@
                         <?php endforeach; ?>
                     </div>
                 </div>
-                <div id="resultArea"></div>
             </div>  
         </main>
     </div>
-    <script src="../public/js/app.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

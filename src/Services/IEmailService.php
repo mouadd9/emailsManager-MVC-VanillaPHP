@@ -38,4 +38,10 @@ interface IEmailService {
      * @return array Associative array of domain => emails[]
      */
     public function getEmailsByDomain(): array;
+
+    /**
+     * Get all sorted emails from EmailsT.txt
+     * @return array List of sorted emails
+     */
+    public function getSortedEmails(): array;
 }

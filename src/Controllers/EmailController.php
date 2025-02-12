@@ -19,7 +19,8 @@ class EmailController {
             'pageTitle' => 'Gestion des Emails',
             'validEmails' => $this->emailService->getEmails(),
             'invalidEmails' => $this->emailService->getInvalidEmails(),
-            'domainEmails' => $this->emailService->getEmailsByDomain()
+            'domainEmails' => $this->emailService->getEmailsByDomain(),
+            'sortedEmails' => $this->emailService->getSortedEmails()
         ];
         
         // Show template with data

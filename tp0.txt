@@ -1,0 +1,15 @@
+Tp0:•Nous voulons réaliser un programme permettant la gestion des emails stockés dans un fichier Emails.txt :
+•Les fonctionnalités suivantes sont demandées
+  –Lire et supprimer les adresses non valides de la liste
+•Les adresses non valides doivent être enregistrés dans un nouveau fichier : adressesNonValides.txt
+  –Afficher un tableau contenant les adresse emails et leur fréquence
+  –Supprimer les doublons
+  –Trier et enregistrer les emails dans un nouveau fichier EmailsT.txt
+  –Séparer les emails par domaine et les enregistrer dans des fichiers distincts
+
+•Ajouter un formulaire permettant d’ajouter une adresse email au fichier Emails.txt
+  –Avant d’ajouter l’adresse email saisie au fichier Emails.txt il faut vérifier que :
+      –Cette adresse email est écrite correctement (double vérification : coté client et/ou coté serveur)
+      –Cette adresse n’existe pas déjà dans la liste.
+•Question facultative :
+Afin d'éviter que des emails invalides ou incorrects soient enregistrés, propose une méthode pour valider les nouvelles adresses avant leur ajout dans le fichier ?
