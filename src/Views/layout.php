@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $pageTitle ?></title>
     <link rel="stylesheet" href="css/style.css">
-    </head>
+</head>
 <body>
     <div class="container">
         <header>
@@ -39,93 +39,14 @@
                 <div id="resultArea"></div>
 
                 <!-- Email Lists -->
-                <div class="email-lists">
-                    <div class="email-tables">
-                        <!-- Valid Emails -->
-                        <div class="email-table">
-                            <div class="table-container">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Emails Valides</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($validEmails as $email): ?>
-                                            <tr>
-                                                <td><?= htmlspecialchars($email) ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                <div class="email-lists" id="emailLists">
+                    <?php require ROOT_PATH . '/src/Views/partial/tables.php'; ?>
+                </div>
 
-                        <!-- Invalid Emails -->
-                        <div class="email-table">
-                            <div class="table-container">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Emails Non Valides</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($invalidEmails as $email): ?>
-                                            <tr>
-                                                <td><?= htmlspecialchars($email) ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>    
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Sorted Emails -->
-                        <div class="email-table">
-                            <div class="table-container">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Emails Triés</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($sortedEmails as $email): ?>
-                                            <tr>
-                                                <td><?= htmlspecialchars($email) ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>    
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <h2>Emails par Domaine</h2>
-                    <!-- Domain Tables -->
-                    <div class="domain-tables">
-    
-                        <?php foreach ($domainEmails as $domain => $emails): ?>
-                            <div class="domain-table">
-                                <div class="table-container">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th><?= htmlspecialchars($domain) ?></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($emails as $email): ?>
-                                                <tr>
-                                                    <td><?= htmlspecialchars($email) ?></td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
+                <!-- Email Frequencies -->
+                <div class="email-frequencies" id="emailFrequencies" style="display: none;">
+                    <h2>Fréquences des Emails</h2>
+                    <ul id="frequencyList"></ul>
                 </div>
             </div>  
         </main>

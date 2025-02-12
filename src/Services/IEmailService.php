@@ -44,4 +44,28 @@ interface IEmailService {
      * @return array List of sorted emails
      */
     public function getSortedEmails(): array;
+
+    /**
+     * Calculate and return email frequencies
+     * @return array Array of email => frequency pairs
+     */
+    public function getEmailFrequencies(): array;
+
+    /**
+     * Remove duplicate emails and update storage
+     * @return array Result with success status and message
+     */
+    public function removeDuplicates(): array;
+
+    /**
+     * Sort emails and save to EmailsT.txt
+     * @return array Result with success status and message
+     */
+    public function sortEmails(): array;
+
+    /**
+     * Separate emails by domain into separate files
+     * @return array Result with success status and message
+     */
+    public function separateByDomain(): array;
 }

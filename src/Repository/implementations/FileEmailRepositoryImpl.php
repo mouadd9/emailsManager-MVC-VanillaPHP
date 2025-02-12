@@ -61,4 +61,34 @@ class FileEmailRepositoryImpl implements IEmailRepository {
         }
         return file($sortedEmailsPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
     }
+
+    public function updateValidEmails(array $emails): bool {
+        return (bool)file_put_contents($this->filePath, implode(PHP_EOL, $emails));
+    }
+
+    public function saveInvalidEmails(array $emails): bool {
+        $invalidEmailsPath = dirname($this->filePath) . '/adressesNonValides.txt';
+        return (bool)file_put_contents($invalidEmailsPath, implode(PHP_EOL, $emails));
+    }
+
+    public function saveSortedEmails(array $emails): bool {
+        $sortedEmailsPath = dirname($this->filePath) . '/EmailsT.txt';
+        return (bool)file_put_contents($sortedEmailsPath, implode(PHP_EOL, $emails));
+    }
+
+    public function saveDomainEmails(array $emailsByDomain): bool {
+        $domainsPath = dirname($this->filePath) . '/domains/';
+        if (!file_exists($domainsPath)) {
+            mkdir($domainsPath, 0777, true);
+        }
+
+        $success = true;
+        foreach ($emailsByDomain as $domain => $emails) {
+            $domainFile = $domainsPath . $domain . '.txt';
+            if (!file_put_contents($domainFile, implode(PHP_EOL, $emails))) {
+                $success = false;
+            }
+        }
+        return $success;
+    }
 }

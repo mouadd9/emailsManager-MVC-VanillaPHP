@@ -114,4 +114,81 @@ class EmailServiceImpl implements IEmailService {
     public function getSortedEmails(): array {
         return $this->repository->getSortedEmails();
     }
+
+    // ######################################### Get email frequencies
+    // ########################################################################
+    public function getEmailFrequencies(): array {
+        $emails = $this->getEmails();
+        $frequencies = array_count_values($emails);
+        
+        return [
+            'success' => true,
+            'message' => 'Email frequencies calculated',
+            'data' => $frequencies
+        ];
+    }
+
+    // ######################################### Remove duplicate emails
+    // ########################################################################
+    public function removeDuplicates(): array {
+        $emails = $this->getEmails();
+        $uniqueEmails = array_unique($emails);
+        
+        if ($this->repository->updateValidEmails($uniqueEmails)) {
+            return [
+                'success' => true,
+                'message' => sprintf('Removed %d duplicate(s)', count($emails) - count($uniqueEmails))
+            ];
+        }
+        
+        return [
+            'success' => false,
+            'message' => 'Failed to remove duplicates'
+        ];
+    }
+
+    // ######################################### Sort emails
+    // ########################################################################
+    public function sortEmails(): array {
+        $emails = $this->getEmails();
+        sort($emails);
+        
+        if ($this->repository->saveSortedEmails($emails)) {
+            return [
+                'success' => true,
+                'message' => 'Emails sorted and saved successfully'
+            ];
+        }
+        
+        return [
+            'success' => false,
+            'message' => 'Failed to sort emails'
+        ];
+    }
+
+    // ######################################### Separate emails by domain
+    // ########################################################################
+    public function separateByDomain(): array {
+        $emails = $this->getEmails();
+        $emailsByDomain = [];
+        
+        foreach ($emails as $email) {
+            if (preg_match('/@(.+)$/', $email, $matches)) {
+                $domain = $matches[1];
+                $emailsByDomain[$domain][] = $email;
+            }
+        }
+        
+        if ($this->repository->saveDomainEmails($emailsByDomain)) {
+            return [
+                'success' => true,
+                'message' => sprintf('Separated emails into %d domain(s)', count($emailsByDomain))
+            ];
+        }
+        
+        return [
+            'success' => false,
+            'message' => 'Failed to separate emails by domain'
+        ];
+    }
 }

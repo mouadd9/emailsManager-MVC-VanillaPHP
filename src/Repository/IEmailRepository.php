@@ -36,4 +36,32 @@ interface IEmailRepository {
      * @return array List of sorted emails
      */
     public function getSortedEmails(): array;
+
+    /**
+     * Update the main emails file with new content
+     * @param array $emails New list of emails to save
+     * @return bool Success status
+     */
+    public function updateValidEmails(array $emails): bool;
+
+    /**
+     * Save invalid emails to adressesNonValides.txt
+     * @param array $emails List of invalid emails
+     * @return bool Success status
+     */
+    public function saveInvalidEmails(array $emails): bool;
+
+    /**
+     * Save sorted emails to EmailsT.txt
+     * @param array $emails Sorted list of emails
+     * @return bool Success status
+     */
+    public function saveSortedEmails(array $emails): bool;
+
+    /**
+     * Save emails separated by domain into domain-specific files
+     * @param array $emailsByDomain Array of domain => emails[] pairs
+     * @return bool Success status
+     */
+    public function saveDomainEmails(array $emailsByDomain): bool;
 }
