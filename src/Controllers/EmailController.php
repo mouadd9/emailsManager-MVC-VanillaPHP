@@ -4,21 +4,56 @@
  * This is the main controller of our application
  */
 class EmailController {
-    /**
-     * The index method is called when users visit our main page
-     * It prepares data and shows the main template
-     */
+    private $emailService;
+
+    // dependency injection
+    public function __construct(IEmailService $emailService) {
+        $this->emailService = $emailService;
+    }
+
+    // The index method is called when users visit our main page
+    // It prepares data and shows the main template
     public function index() {
-        // Prepare data that we want to show in our template
-        // For now, this is just test data
+        // Get emails from service
         $data = [
             'pageTitle' => 'Email Management System',
-            'emails' => ['test@example.com', 'another@example.com']
+            'emails' => $this->emailService->getEmails()
         ];
         
         // Pass our data to the template
-        // This will show the layout.php template with our data
         $this->render('layout', $data);
+    }
+    
+    // Handle AJAX requests from our JavaScript
+    public function handleRequest() { // Returns JSON response
+        // Tell browser we're sending JSON
+        header('Content-Type: application/json');
+        
+        $action = $_POST['action'] ?? '';
+        
+        // Handle different actions
+        switch($action) {
+            case 'addEmail':
+                $email = $_POST['email'] ?? '';
+                // Delegate to email service
+                $result = $this->emailService->addEmail($email); 
+                echo json_encode($result);
+                break;
+                
+            default:
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Invalid action'
+                ]);
+
+                /*
+                {
+                    "success" : false,
+                    "message" : "Invalid action"
+                } 
+                
+                */
+        }
     }
     
     /**
