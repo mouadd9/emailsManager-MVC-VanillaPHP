@@ -37,24 +37,26 @@ document.addEventListener('DOMContentLoaded', function() {
         */
         .then(data => {
             // Show message to user
-            showMessage(data.message);
+            showMessage(data.message, data.success);
             // Clear input if success
             if (data.success) {
                 emailInput.value = '';
+                
             }
         })
         .catch(error => {
-            showMessage('Error: ' + error.message);
+            showMessage(error.message, false);
         });
     });
     
     // Function to show messages to user
-    function showMessage(message) {
+    function showMessage(message, isSuccess) {
         const resultArea = document.getElementById('resultArea');
-        resultArea.innerHTML = `<div class="message">${message}</div>`;
+        const messageClass = isSuccess ? 'success' : 'error';
+        resultArea.innerHTML = `<div class="message ${messageClass}">${message}</div>`;
         resultArea.style.display = 'block';
         
-        // Hide message after 3 seconds
+        // Hide message after 5 seconds
         setTimeout(function() {
             resultArea.style.display = 'none';
         }, 5000);

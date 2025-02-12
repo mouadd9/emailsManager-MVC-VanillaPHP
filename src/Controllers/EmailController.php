@@ -14,13 +14,15 @@ class EmailController {
     // The index method is called when users visit our main page
     // It prepares data and shows the main template
     public function index() {
-        // Get emails from service
+        // Prepare data for template
         $data = [
-            'pageTitle' => 'Email Management System',
-            'emails' => $this->emailService->getEmails()
+            'pageTitle' => 'Gestion des Emails',
+            'validEmails' => $this->emailService->getEmails(),
+            'invalidEmails' => $this->emailService->getInvalidEmails(),
+            'domainEmails' => $this->emailService->getEmailsByDomain()
         ];
         
-        // Pass our data to the template
+        // Show template with data
         $this->render('layout', $data);
     }
     
@@ -37,6 +39,11 @@ class EmailController {
                 $email = $_POST['email'] ?? '';
                 // Delegate to email service
                 $result = $this->emailService->addEmail($email); 
+                echo json_encode($result);
+                break;
+                
+            case 'validateEmails':
+                $result = $this->emailService->validateEmails();
                 echo json_encode($result);
                 break;
                 

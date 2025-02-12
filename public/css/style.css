@@ -78,13 +78,14 @@ button:active {
     transform: translateY(0);
 }
 
+
 .message {
-    padding: 1rem;
-    background-color: var(--message-bg);
-    border-left: 4px solid var(--message-border);
-    border-radius: 8px;
-    margin: 1rem 0;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    font-weight: bold;
 }
+
 
 .actions {
     display: flex;
@@ -92,4 +93,81 @@ button:active {
     gap: 0.5rem;
     justify-content: center;
     margin: 10px 0;
+}
+
+.message.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef5350;
+}
+
+.message.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #66bb6a;
+}
+
+/* Email Lists */
+.email-lists {
+    margin-top: 2rem;
+}
+
+.email-tables {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.email-table, .domain-table {
+    flex: 1;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1rem;
+}
+
+.table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: #f8f9fa;
+    position: sticky;
+    top: 0;
+}
+
+.domain-tables {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.domain-table h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .email-tables {
+        flex-direction: column;
+    }
+    
+    .domain-tables {
+        grid-template-columns: 1fr;
+    }
 }

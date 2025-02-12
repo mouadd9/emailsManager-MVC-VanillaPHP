@@ -50,4 +50,62 @@ class EmailServiceImpl implements IEmailService {
 
         // here we will throw an exception instead of doing this.
     }
+    
+    // ######################################### Validate all emails
+    // ########################################################################
+    public function validateEmails(): array {
+        $allEmails = $this->repository->getAll();
+        $validEmails = [];
+        $invalidEmails = [];
+        
+        foreach ($allEmails as $email) {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $validEmails[] = $email;
+            } else {
+                $invalidEmails[] = $email;
+            }
+        }
+        
+        // Update valid emails
+        if (!$this->repository->updateValidEmails($validEmails)) {
+            return [
+                'success' => false,
+                'message' => 'Failed to update valid emails',
+                'data' => null
+            ];
+        }
+        
+        // Save invalid emails
+        if (!$this->repository->saveInvalidEmails($invalidEmails)) {
+            return [
+                'success' => false,
+                'message' => 'Failed to save invalid emails',
+                'data' => null
+            ];
+        }
+        
+        return [
+            'success' => true,
+            'message' => sprintf('Successfully validated emails: %d valid, %d invalid', 
+                count($validEmails), 
+                count($invalidEmails)
+            ),
+            'data' => [
+                'valid' => $validEmails,
+                'invalid' => $invalidEmails
+            ]
+        ];
+    }
+    
+    // ######################################### Get invalid emails
+    // ########################################################################
+    public function getInvalidEmails(): array {
+        return $this->repository->getInvalidEmails();
+    }
+    
+    // ######################################### Get emails by domain
+    // ########################################################################
+    public function getEmailsByDomain(): array {
+        return $this->repository->getEmailsByDomain();
+    }
 }

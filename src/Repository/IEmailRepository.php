@@ -18,4 +18,16 @@ interface IEmailRepository {
      * @return bool True if exists, false otherwise
      */
     public function exists(string $email): bool;
+
+    /**
+     * Get all emails grouped by domain
+     * @return array Associative array of domain => emails[]
+     */
+    public function getEmailsByDomain(): array;
+
+    /**
+     * Get all invalid emails
+     * @return array List of invalid emails
+     */
+    public function getInvalidEmails(): array;
 }
