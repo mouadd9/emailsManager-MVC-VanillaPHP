@@ -17,7 +17,7 @@ class EmailServiceImpl implements IEmailService {
     // ########################################################################
     public function addEmail(string $email): array {
         // FILTER 1 (email validation)  
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!$this->isValidEmail($email)) {
             // EXCEPTION 1 (invalid email format)
             return [
                 'success' => false,
@@ -59,7 +59,8 @@ class EmailServiceImpl implements IEmailService {
         $invalidEmails = [];
         
         foreach ($allEmails as $email) {
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $email = trim($email); // Remove any whitespace
+            if ($this->isValidEmail($email)) {
                 $validEmails[] = $email;
             } else {
                 $invalidEmails[] = $email;
@@ -97,6 +98,44 @@ class EmailServiceImpl implements IEmailService {
         ];
     }
     
+    private function isValidEmail(string $email): bool {
+        // First, basic format check with filter_var
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+
+        // Additional validation rules
+        // 1. Check for consecutive dots
+        if (strpos($email, '..') !== false) {
+            return false;
+        }
+
+        // 2. Check for valid domain format
+        $parts = explode('@', $email);
+        if (count($parts) !== 2) {
+            return false;
+        }
+
+        $domain = $parts[1];
+        // Check domain has at least one dot and proper TLD length
+        if (substr_count($domain, '.') < 1 || 
+            strlen(explode('.', $domain)[1]) < 2) {
+            return false;
+        }
+
+        // 3. Check local part length (before @)
+        if (strlen($parts[0]) > 64 || strlen($parts[0]) < 1) {
+            return false;
+        }
+
+        // 4. Check for invalid characters in local part
+        if (!preg_match('/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+$/', $parts[0])) {
+            return false;
+        }
+
+        return true;
+    }
+
     // ######################################### Get invalid emails
     // ########################################################################
     public function getInvalidEmails(): array {
@@ -189,6 +228,31 @@ class EmailServiceImpl implements IEmailService {
         return [
             'success' => false,
             'message' => 'Failed to separate emails by domain'
+        ];
+    }
+
+    // ######################################### Get non-existent domains
+    // ########################################################################
+    public function getNonExistentDomains(): array {
+        $emails = $this->getEmails();
+        $nonExistentDomains = [];
+        
+        foreach ($emails as $email) {
+            if (preg_match('/@(.+)$/', $email, $matches)) {
+                $domain = $matches[1];
+                if (!checkdnsrr($domain, 'MX') && !checkdnsrr($domain, 'A')) {
+                    if (!isset($nonExistentDomains[$domain])) {
+                        $nonExistentDomains[$domain] = [];
+                    }
+                    $nonExistentDomains[$domain][] = $email;
+                }
+            }
+        }
+        
+        return [
+            'success' => true,
+            'message' => 'Non-existent domains retrieved',
+            'data' => $nonExistentDomains
         ];
     }
 }

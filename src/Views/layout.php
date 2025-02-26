@@ -19,6 +19,16 @@
             <h1><?= $pageTitle ?></h1>
         </header>
         <main>
+            <!-- Formulaire pour télécharger un fichier d'emails -->
+            <div class="upload-form">
+                <h2>Importer un fichier d'emails</h2>
+                <form action="index.php?action=uploadFile" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="file" name="emailFile" accept=".txt" required>
+                        <button type="submit">Importer</button>
+                    </div>
+                </form>
+            </div>
             <!-- Formulaire pour ajouter un nouvel email -->
             <div class="email-form">
                 <h2>Ajouter un email</h2>
@@ -34,6 +44,7 @@
                     <button onclick="performAction('supprimerDoublons')">Supprimer doublons</button>
                     <button onclick="performAction('trierEmails')">Trier les emails</button>
                     <button onclick="performAction('separerDomaines')">Séparer par domaine</button>
+                    <button onclick="performAction('verifierDomaines')">Vérifier Domaines Non Existants</button>
                 </div>
 
                 <div id="resultArea"></div>

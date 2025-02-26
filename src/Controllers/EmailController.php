@@ -56,6 +56,10 @@ class EmailController
 
                 case 'afficherFrequences':
                     $result = $this->emailService->getEmailFrequencies();
+                    ob_start();
+                    extract(['frequencies' => $result['data']]);
+                    require ROOT_PATH . "/src/Views/partial/frequency_table.php";
+                    $result['html'] = ob_get_clean();
                     $response = $result;
                     break;
 
@@ -73,6 +77,78 @@ class EmailController
                     $result = $this->emailService->separateByDomain();
                     $response = array_merge($result, $this->getTablesView());
                     break;
+
+                case 'verifierDomaines':
+                    $result = $this->emailService->getNonExistentDomains();
+                    ob_start();
+                    extract(['nonexistentDomains' => $result['data']]);
+                    require ROOT_PATH . "/src/Views/partial/nonexistent_domains.php";
+                    $result['html'] = ob_get_clean();
+                    $response = $result;
+                    break;
+
+                case 'exportEmails':
+                    $type = $_POST['type'] ?? '';
+                    $emails = [];
+                    
+                    switch($type) {
+                        case 'valid':
+                            $emails = $this->emailService->getEmails();
+                            $filename = 'valid_emails.txt';
+                            break;
+                        case 'invalid':
+                            $emails = $this->emailService->getInvalidEmails();
+                            $filename = 'invalid_emails.txt';
+                            break;
+                        case 'sorted':
+                            $emails = $this->emailService->getSortedEmails();
+                            $filename = 'sorted_emails.txt';
+                            break;
+                        case 'domain':
+                            $domainEmails = $this->emailService->getEmailsByDomain();
+                            $emails = [];
+                            foreach ($domainEmails as $domain => $list) {
+                                $emails[] = "[$domain]";
+                                $emails = array_merge($emails, $list);
+                                $emails[] = ""; // Empty line between domains
+                            }
+                            $filename = 'domain_emails.txt';
+                            break;
+                        case 'frequency':
+                            $frequencies = $this->emailService->getEmailFrequencies()['data'];
+                            $emails = [];
+                            foreach ($frequencies as $email => $count) {
+                                $emails[] = "$email: $count occurrence(s)";
+                            }
+                            $filename = 'email_frequencies.txt';
+                            break;
+                        case 'nonexistent':
+                            $domains = $this->emailService->getNonExistentDomains()['data'];
+                            foreach ($domains as $domain => $emails_list) {
+                                $emails[] = "[$domain]";
+                                $emails = array_merge($emails, $emails_list);
+                                $emails[] = ""; // Empty line between domains
+                            }
+                            $filename = 'nonexistent_domains.txt';
+                            break;
+                        default:
+                            $response = [
+                                'success' => false,
+                                'message' => 'Invalid export type'
+                            ];
+                            echo json_encode($response);
+                            return;
+                    }
+
+                    // Set headers for file download
+                    header('Content-Type: text/plain');
+                    header('Content-Disposition: attachment; filename="' . $filename . '"');
+                    header('Content-Length: ' . strlen(implode("\n", $emails)));
+                    header('Cache-Control: private');
+                    header('Pragma: public');
+
+                    echo implode("\n", $emails);
+                    exit;
 
                 default:
                     $response = [
@@ -136,5 +212,33 @@ class EmailController
         extract($data);
         require ROOT_PATH . "/src/Views/partial/tables.php";
         return ob_get_clean();
+    }
+
+    public function uploadFile()
+    {
+        if (!isset($_FILES['emailFile']) || $_FILES['emailFile']['error'] !== UPLOAD_ERR_OK) {
+            $_SESSION['error'] = "Erreur lors du téléchargement du fichier";
+            header('Location: index.php');
+            return;
+        }
+
+        $tmpName = $_FILES['emailFile']['tmp_name'];
+        $content = file_get_contents($tmpName);
+        
+        if ($content === false) {
+            $_SESSION['error'] = "Impossible de lire le contenu du fichier";
+            header('Location: index.php');
+            return;
+        }
+
+        // Copier le fichier vers data/emails.txt
+        if (!copy($tmpName, ROOT_PATH . '/data/emails.txt')) {
+            $_SESSION['error'] = "Impossible de sauvegarder le fichier";
+            header('Location: index.php');
+            return;
+        }
+
+        $_SESSION['success'] = "Le fichier a été téléchargé avec succès";
+        header('Location: index.php');
     }
 }

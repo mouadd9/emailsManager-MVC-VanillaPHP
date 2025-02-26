@@ -160,6 +160,96 @@ th {
     margin-bottom: 1rem;
 }
 
+.upload-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.upload-form h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.upload-form .form-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.upload-form input[type="file"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.upload-form button {
+    padding: 8px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.upload-form button:hover {
+    background-color: #218838;
+}
+
+/* Frequency table specific styles */
+.email-table table th:nth-child(2),
+.email-table table td:nth-child(2) {
+    text-align: center;
+    width: 120px;
+}
+
+.email-table table td:nth-child(2) {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Table header with export button */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+.table-header h3 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.export-btn {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+}
+
+.export-btn:hover {
+    background-color: #138496;
+}
+
+.export-btn i {
+    font-size: 1em;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .email-tables {

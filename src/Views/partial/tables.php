@@ -7,6 +7,12 @@
 <div class="email-tables">
     <!-- Valid Emails -->
     <div class="email-table">
+        <div class="table-header">
+            <h3>Emails : emails.txt</h3>
+            <button class="export-btn" data-type="valid">
+                <i class="fas fa-download"></i> Exporter
+            </button>
+        </div>
         <div class="table-container">
             <table>
                 <thead>
@@ -27,6 +33,12 @@
 
     <!-- Invalid Emails -->
     <div class="email-table">
+        <div class="table-header">
+            <h3>Emails Non Valides : adressesNonValides.txt</h3>
+            <button class="export-btn" data-type="invalid">
+                <i class="fas fa-download"></i> Exporter
+            </button>
+        </div>
         <div class="table-container">
             <table>
                 <thead>
@@ -47,6 +59,12 @@
 
     <!-- Sorted Emails -->
     <div class="email-table">
+        <div class="table-header">
+            <h3>Emails Triés : emailsT.txt</h3>
+            <button class="export-btn" data-type="sorted">
+                <i class="fas fa-download"></i> Exporter
+            </button>
+        </div>
         <div class="table-container">
             <table>
                 <thead>
@@ -71,6 +89,12 @@
 <div class="domain-tables">
     <?php foreach ($domainEmails as $domain => $emails): ?>
         <div class="domain-table">
+            <div class="table-header">
+                <h3><?= htmlspecialchars($domain) ?></h3>
+                <button class="export-btn" data-type="domain" data-domain="<?= htmlspecialchars($domain) ?>">
+                    <i class="fas fa-download"></i> Exporter
+                </button>
+            </div>
             <div class="table-container">
                 <table>
                     <thead>

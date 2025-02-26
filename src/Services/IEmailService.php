@@ -68,4 +68,10 @@ interface IEmailService {
      * @return array Result with success status and message
      */
     public function separateByDomain(): array;
+
+    /**
+     * Get list of non-existent domains
+     * @return array List of non-existent domains and their emails
+     */
+    public function getNonExistentDomains(): array;
 }

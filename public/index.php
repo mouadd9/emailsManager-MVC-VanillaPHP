@@ -25,9 +25,14 @@ $repository = new FileEmailRepositoryImpl(ROOT_PATH . '/data/emails.txt');
 $emailService = new EmailServiceImpl($repository);
 $controller = new EmailController($emailService);
 
-// Check if this is an AJAX request
-if (!empty($_POST['action'])) { // !!! what is $_POST ???? interested ? go down !!!
+// Start session for flash messages
+session_start();
+
+// Check if this is an AJAX request or file upload
+if (!empty($_POST['action'])) {
     $controller->handleRequest(); // Handle AJAX request
+} elseif (isset($_GET['action']) && $_GET['action'] === 'uploadFile') {
+    $controller->uploadFile(); // Handle file upload
 } else {
     $controller->index(); // Show the main page
 }

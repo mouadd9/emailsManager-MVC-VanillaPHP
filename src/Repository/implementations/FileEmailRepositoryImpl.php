@@ -51,7 +51,11 @@ class FileEmailRepositoryImpl implements IEmailRepository {
         if (!file_exists($invalidEmailsPath)) {
             return [];
         }
-        return file($invalidEmailsPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
+        $content = file_get_contents($invalidEmailsPath);
+        if ($content === false) {
+            return [];
+        }
+        return array_filter(explode(PHP_EOL, $content));
     }
 
     public function getSortedEmails(): array {
@@ -68,7 +72,8 @@ class FileEmailRepositoryImpl implements IEmailRepository {
 
     public function saveInvalidEmails(array $emails): bool {
         $invalidEmailsPath = dirname($this->filePath) . '/adressesNonValides.txt';
-        return (bool)file_put_contents($invalidEmailsPath, implode(PHP_EOL, $emails));
+        $content = implode(PHP_EOL, array_filter($emails));
+        return (bool)file_put_contents($invalidEmailsPath, $content);
     }
 
     public function saveSortedEmails(array $emails): bool {

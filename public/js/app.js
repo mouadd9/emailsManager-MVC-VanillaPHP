@@ -104,4 +104,40 @@ document.addEventListener('DOMContentLoaded', function() {
             displayMessage('Une erreur est survenue: ' + error.message, false);
         });
     }
+
+    // Function to verify non-existent domains
+    function verifierDomaines() {
+        performAction('verifierDomaines');
+    }
+
+    // Export functionality
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.export-btn')) {
+            const btn = e.target.closest('.export-btn');
+            const type = btn.dataset.type;
+            
+            // Create a form and submit it to trigger the download
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'index.php';
+            
+            // Add action field
+            const actionInput = document.createElement('input');
+            actionInput.type = 'hidden';
+            actionInput.name = 'action';
+            actionInput.value = 'exportEmails';
+            form.appendChild(actionInput);
+            
+            // Add type field
+            const typeInput = document.createElement('input');
+            typeInput.type = 'hidden';
+            typeInput.name = 'type';
+            typeInput.value = type;
+            form.appendChild(typeInput);
+            
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+    });
 });

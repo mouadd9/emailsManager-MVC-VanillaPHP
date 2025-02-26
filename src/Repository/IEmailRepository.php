@@ -59,8 +59,8 @@ interface IEmailRepository {
     public function saveSortedEmails(array $emails): bool;
 
     /**
-     * Save emails separated by domain into domain-specific files
-     * @param array $emailsByDomain Array of domain => emails[] pairs
+     * Save emails by domain into separate files
+     * @param array $emailsByDomain Array of emails grouped by domain
      * @return bool Success status
      */
     public function saveDomainEmails(array $emailsByDomain): bool;
