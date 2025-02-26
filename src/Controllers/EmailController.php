@@ -17,16 +17,20 @@ class EmailController
     // It prepares data and shows the main template
     public function index()
     {
-        // Prepare data for template
+        // On considère le fichier importé s'il existe et contient des données
+        $fileUploaded = file_exists(ROOT_PATH . '/data/Emails.txt') && filesize(ROOT_PATH . '/data/Emails.txt') > 0;
+
+        // Préparer les données pour la vue
         $data = [
             'pageTitle' => 'Gestion des Emails',
             'validEmails' => $this->emailService->getEmails(),
             'invalidEmails' => $this->emailService->getInvalidEmails(),
             'domainEmails' => $this->emailService->getEmailsByDomain(),
-            'sortedEmails' => $this->emailService->getSortedEmails()
+            'sortedEmails' => $this->emailService->getSortedEmails(),
+            'fileUploaded' => $fileUploaded
         ];
 
-        // Show template with data
+        // Affiche le template avec les données préparées
         $this->render('layout', $data);
     }
 
@@ -90,8 +94,8 @@ class EmailController
                 case 'exportEmails':
                     $type = $_POST['type'] ?? '';
                     $emails = [];
-                    
-                    switch($type) {
+
+                    switch ($type) {
                         case 'valid':
                             $emails = $this->emailService->getEmails();
                             $filename = 'valid_emails.txt';
@@ -224,15 +228,15 @@ class EmailController
 
         $tmpName = $_FILES['emailFile']['tmp_name'];
         $content = file_get_contents($tmpName);
-        
+
         if ($content === false) {
             $_SESSION['error'] = "Impossible de lire le contenu du fichier";
             header('Location: index.php');
             return;
         }
 
-        // Copier le fichier vers data/emails.txt
-        if (!copy($tmpName, ROOT_PATH . '/data/emails.txt')) {
+        // Copier le fichier vers data/Emails.txt
+        if (!copy($tmpName, ROOT_PATH . '/data/Emails.txt')) {
             $_SESSION['error'] = "Impossible de sauvegarder le fichier";
             header('Location: index.php');
             return;

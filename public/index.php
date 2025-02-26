@@ -21,7 +21,7 @@ require_once ROOT_PATH . '/src/Services/implementations/EmailServiceImpl.php';
 require_once ROOT_PATH . '/src/Controllers/EmailController.php';
 
 // Set up dependency injection
-$repository = new FileEmailRepositoryImpl(ROOT_PATH . '/data/emails.txt');
+$repository = new FileEmailRepositoryImpl(ROOT_PATH . '/data/Emails.txt');
 $emailService = new EmailServiceImpl($repository);
 $controller = new EmailController($emailService);
 

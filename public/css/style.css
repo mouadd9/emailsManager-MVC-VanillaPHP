@@ -1,262 +1,266 @@
 :root {
-    --primary-color: #4299e1;
-    --secondary-color: #2d3748;
-    --container-bg: #ffffff;
-    --message-bg: #ebf8ff;
-    --message-border: #427ae1;
-    --font-family: 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+  --primary-color: #4299e1;
+  --primary-color-dark: #3182ce;
+  --secondary-color: #2d3748;
+  --container-bg: #ffffff;
+  --message-bg: #ebf8ff;
+  --message-border: #427ae1;
+  --font-family: "Segoe UI", system-ui, -apple-system, "Roboto", sans-serif;
 }
 
 body {
-    font-family: var(--font-family);
-    margin: 0;
-    padding: 0;
-    color: var(--secondary-color);
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+  color: var(--secondary-color);
 }
 
 .container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    background: var(--container-bg);
-    padding: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  background: var(--container-bg);
+  padding: 2rem;
 }
 
 header {
-    text-align: center;
-    margin-bottom: 2rem;
+  text-align: center;
+  margin-bottom: 4rem;
 }
 
 header h1 {
-    font-size: 2.5rem;
-    margin: 0;
+  font-size: 2.5rem;
+  margin: 0;
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.email-form, .actions-section, .results {
-    padding: 1.5rem;
-    background: #fff;
-    border-radius: 4px;
-    border: 2px solid var(--secondary-color);
+.email-form,
+.actions-section,
+.results {
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 4px;
+  border: 2px solid var(--secondary-color);
 }
 
 .email-form input[type="text"] {
-    width: calc(100% - 140px);
-    padding: 0.6rem 1rem;
-    border: 2px solid var(--primary-color);
-    border-radius: 4px;
-    margin-right: 10px;
-    font-size: 1rem;
+  width: calc(100% - 140px);
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--primary-color);
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 1rem;
 }
 
 .email-form input[type="text"]:focus {
-    outline: none;
-    border-color: var(--primary-color);
+  outline: none;
+  border-color: var(--primary-color);
 }
 
 button {
-    background-color: var(--primary-color);
-    color: #fff;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background-color: #3182ce;
-    transform: translateY(-2px);
+  background-color: #3182ce;
+  transform: translateY(-2px);
 }
 
 button:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
-
 
 .message {
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 4px;
-    font-weight: bold;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  font-weight: bold;
 }
 
-
 .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 10px 0;
 }
 
 .message.error {
-    background-color: #ffebee;
-    color: #c62828;
-    border: 1px solid #ef5350;
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef5350;
 }
 
 .message.success {
-    background-color: #e8f5e9;
-    color: #2e7d32;
-    border: 1px solid #66bb6a;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #66bb6a;
 }
 
 /* Email Lists */
 .email-lists {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .email-tables {
-    display: flex;
-    gap: 2rem;
-    margin-bottom: 2rem;
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
-.email-table, .domain-table {
-    flex: 1;
-    background: white;
-    border-radius: 4px;
-    border: 2px solid #2c3e50;
+.email-table,
+.domain-table {
+  flex: 1;
+  background: white;
+  border-radius: 4px;
+  border: 2px solid var(--secondary-color);
 }
 
 .table-container {
-    max-height: 300px;
-    overflow-y: auto;
-    border: 1px solid #eee;
-    border-radius: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 4px;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-th, td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid #eee;
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
 }
 
 th {
-    background: #f8f9fa;
-    position: sticky;
-    top: 0;
+  background: #f8f9fa;
+  position: sticky;
+  top: 0;
 }
 
 .domain-tables {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
 }
 
 .domain-table h3 {
-    color: #2c3e50;
-    margin-bottom: 1rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
 }
 
 .upload-form {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 2px solid var(--secondary-color);
+  border-radius: 4px;
 }
 
 .upload-form h2 {
-    margin-top: 0;
-    color: #333;
-    font-size: 1.5em;
-    margin-bottom: 15px;
+  margin-top: 0;
+  color: #333;
+  font-size: 1.5em;
+  margin-bottom: 15px;
 }
 
 .upload-form .form-group {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .upload-form input[type="file"] {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: white;
+  flex: 1;
+  padding: 8px;
+  border: 2px solid var(--primary-color);
+  border-radius: 4px;
+  background-color: white;
 }
 
 .upload-form button {
-    padding: 8px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  padding: 8px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .upload-form button:hover {
-    background-color: #218838;
+  background-color: var(--primary-color-dark);
 }
 
 /* Frequency table specific styles */
 .email-table table th:nth-child(2),
 .email-table table td:nth-child(2) {
-    text-align: center;
-    width: 120px;
+  text-align: center;
+  width: 120px;
 }
 
 .email-table table td:nth-child(2) {
-    font-weight: bold;
-    color: #2c3e50;
+  font-weight: bold;
+  color: #2c3e50;
 }
 
 /* Table header with export button */
 .table-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  gap: 10px;
 }
 
 .table-header h3 {
-    margin: 0;
-    color: #2c3e50;
+  margin: 0;
+  color: #2c3e50;
 }
 
 .export-btn {
-    background-color: #17a2b8;
-    color: white;
-    border: none;
-    padding: 5px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.9em;
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9em;
 }
 
 .export-btn:hover {
-    background-color: #138496;
+  background-color: #138496;
 }
 
 .export-btn i {
-    font-size: 1em;
+  font-size: 1em;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .email-tables {
-        flex-direction: column;
-    }
-    
-    .domain-tables {
-        grid-template-columns: 1fr;
-    }
+  .email-tables {
+    flex-direction: column;
+  }
+
+  .domain-tables {
+    grid-template-columns: 1fr;
+  }
 }
